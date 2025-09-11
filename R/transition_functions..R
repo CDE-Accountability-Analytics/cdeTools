@@ -51,13 +51,13 @@ trans_matrix <- function(df,
 
   # 2) Color-format each cell
   levels_before <- levels(data[[pre_col]])
-  get_color <- function(b, a) {
-    i0 <- match(b, levels_before)
-    i1 <- match(a, levels_before)
-    if      (i1 < i0) "green"  else
-    if      (i1 > i0) "red"    else
-                      "grey"
-  }
+get_color <- function(b, a) {
+  i0 <- match(b, levels_before)
+  i1 <- match(a, levels_before)
+  if      (i1 < i0) "#c6efce"  else  # light green
+  if      (i1 > i0) "#ffc7ce"  else  # light red
+                      "#e0e0e0"       # light grey
+}
   mat_fmt <- mat
   for (i in seq_len(nrow(mat_fmt))) {
     before <- mat_fmt[[pre_label]][i]
@@ -204,18 +204,31 @@ trans_sum <- function(df,
   # 4) Alignment: left for Change, center for counts/percents
   align_vec <- c("l", rep("c", ncol(summary_df) - 1))
 
-  # 5) Render HTML summary table
-  knitr::kable(
-    summary_df,
-    format     = "html",
-    escape     = FALSE,
-    align      = align_vec,
-    caption    = caption_html,
-    table.attr = 'style="width:auto; margin:1em auto;"'
-  ) |>
-    kableExtra::kable_styling(
-      bootstrap_options = c("striped", "condensed", "responsive"),
-      full_width       = FALSE,
-      position         = "left"
-    )
+# 5) Render HTML summary table
+tab <- knitr::kable(
+  summary_df,
+  format     = "html",
+  escape     = FALSE,
+  align      = align_vec,
+  caption    = caption_html,
+  table.attr = 'style="width:auto; margin:1em auto;"'
+) |>
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped", "condensed", "responsive"),
+    full_width       = FALSE,
+    position         = "left"
+  )
+
+# Apply row colors
+for (i in seq_len(nrow(summary_df))) {
+  change_val <- summary_df$Change[i]
+
+  if (grepl("^Up", change_val) | change_val == "Previously Unrated") {
+    tab <- tab |> kableExtra::row_spec(i, background = "#c6efce") # light green
+  } else if (grepl("^Down", change_val) | change_val == "Now Unrated") {
+    tab <- tab |> kableExtra::row_spec(i, background = "#ffc7ce") # light red
+  }
+}
+
+tab
 }

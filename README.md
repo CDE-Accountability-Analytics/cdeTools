@@ -23,7 +23,7 @@ You can install the development version of cdeTools from
 
 ``` r
 # install.packages("pak")
-pak::pak("dama1833/cdeTools")
+pak::pak("CDE-Accountability-Analytics/cdeTools")
 ```
 
 ## Example

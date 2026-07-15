@@ -14,8 +14,8 @@ Description: This package includes tools meant to facilitate data manipulation a
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-URL: https://github.com/dama1833/cdeTools
-BugReports: https://github.com/dama1833/cdeTools/issues
+URL: https://github.com/CDE-Accountability-Analytics/cdeTools
+BugReports: https://github.com/CDE-Accountability-Analytics/cdeTools/issues
 Depends: 
     R (>= 3.5)
 RoxygenNote: 7.3.2

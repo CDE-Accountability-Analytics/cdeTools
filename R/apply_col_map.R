@@ -71,10 +71,10 @@ apply_col_map <- function(df, convert_type = TRUE, clean = TRUE) {
   # Optionally convert variable types if convert_type is TRUE
   if (convert_type) {
     # Define standard variable names for conversion
-    integer_vars <- c("scale_score", "sgp", "year")
+    integer_vars <- c("scale_score", "sgp", "year", "year_detail")
     numeric_vars <- c("mss", "mgp", "pct_pts", "pct_pts_w")
     #factor_vars  <- c("rating")
-    char_vars    <- c("dist","sch")
+    char_vars    <- c("dist","sch", "detail_key", "key", "sasid")
 
     # Determine which of these variables exist in the dataframe
     integer_vars_exist <- intersect(integer_vars, names(df))
